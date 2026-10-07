@@ -24,9 +24,7 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static("public"));
 
-app.get("/",(req,res) => {
-    res.send("Hi, I am root");
-});
+
 
 //Index Route
 app.get("/listings", async (req, res) => {
