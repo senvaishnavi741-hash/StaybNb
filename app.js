@@ -6,7 +6,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 
-const MONGO_URL ="mongodb://127.0.0.1:27017/staybNb";
+const MONGO_URL = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/staybNb";
 
 main().then(() => {
     console.log("MongoDB is connected");
@@ -22,9 +22,11 @@ app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
-
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 //Index Route
 app.get("/listings", async (req, res) => {
@@ -90,6 +92,11 @@ app.delete("/listings/:id", async (req, res) => {
 //    res.send("Successful Testing");
 //});
 
-app.listen(8080, ()=> {
-    console.log("server is listening to port 8080");
-});
+if (require.main === module) {
+    const port = process.env.PORT || 8080;
+    app.listen(port, () => {
+        console.log(`server is listening to port ${port}`);
+    });
+}
+
+module.exports = app;

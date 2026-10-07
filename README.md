@@ -15,6 +15,7 @@ StaybNb is a simple accommodation listing app built with Node.js, Express, EJS, 
 - MongoDB running locally on its default port (`27017`)
 
 The app connects to the `staybNb` database at `mongodb://127.0.0.1:27017/staybNb`.
+Set `MONGODB_URI` to use a different MongoDB connection string, such as a hosted MongoDB database.
 
 ## Getting started
 
@@ -43,6 +44,10 @@ node init/index.js
 ```
 
 **This script deletes all existing listings in the `staybNb` database before inserting the sample data.** Back up any listings you want to keep before running it.
+
+## Deploying to Vercel
+
+Import the Git repository into Vercel and set the `MONGODB_URI` environment variable in the project settings to a reachable hosted MongoDB connection string. A local MongoDB address such as `127.0.0.1` is only available for local development and cannot be reached by a Vercel deployment. Redeploy after adding or changing the environment variable.
 
 ## Project structure
 
