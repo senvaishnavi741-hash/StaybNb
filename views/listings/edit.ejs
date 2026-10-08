@@ -1,15 +1,19 @@
 <% layout("/layouts/boilerplate") %>
-<div class="row mt-3">
-    <div class="col-8 offset-2">
-        <h3>Edit Listing</h3>
+<div class="row mt-3 mb-5">
+    <div class="col-lg-8 col-md-10 offset-lg-2 offset-md-1">
+        <h3 class="mb-3">Edit Listing</h3>
+        <% if (errors && errors.length) { %>
+            <div class="alert alert-danger" role="alert"><ul class="mb-0"><% errors.forEach(error => { %><li><%= error %></li><% }) %></ul></div>
+        <% } %>
         <form method="POST" action="/listings/<%= listing._id %>" class="needs-validation" novalidate>
-            <div class="mb-3"><label class="form-label" for="title">Title</label><input class="form-control" id="title" name="title" value="<%= listing.title %>" required><div class="invalid-feedback">Enter a title.</div></div>
-            <div class="mb-3"><label class="form-label" for="description">Description</label><textarea class="form-control" id="description" name="description" rows="4" required><%= listing.description %></textarea><div class="invalid-feedback">Enter a description.</div></div>
-            <div class="mb-3"><label class="form-label" for="image">Image URL</label><input class="form-control" id="image" name="image" type="url" value="<%= listing.image.url %>" required><div class="invalid-feedback">Enter a valid image URL.</div></div>
-            <div class="mb-3"><label class="form-label" for="price">Price per night (₹)</label><input class="form-control" id="price" name="price" type="number" min="0" value="<%= listing.price %>" required><div class="invalid-feedback">Enter a valid price.</div></div>
+            <div class="mb-3"><label class="form-label" for="title">Listing name</label><input class="form-control" id="title" name="title" value="<%= listing.title || '' %>" required><div class="invalid-feedback">Enter a listing name.</div></div>
+            <div class="mb-3"><label class="form-label" for="description">Description</label><textarea class="form-control" id="description" name="description" rows="4" required><%= listing.description || '' %></textarea><div class="invalid-feedback">Enter a description.</div></div>
+            <div class="mb-3"><label class="form-label" for="category">Type of place</label><select class="form-select" id="category" name="category" required><% categories.forEach(category => { %><option value="<%= category %>" <%= listing.category === category ? 'selected' : '' %>><%= category.charAt(0).toUpperCase() + category.slice(1) %></option><% }) %></select><div class="form-text">Used to choose a suitable default photo if you clear the photo URL.</div></div>
+            <div class="mb-3"><label class="form-label" for="image">Photo URL <span class="text-muted">(optional)</span></label><input class="form-control" id="image" name="image" type="url" value="<%= listing.image?.url || '' %>" placeholder="Leave blank to use a default photo"><div class="invalid-feedback">Enter a valid photo URL, or leave it blank.</div></div>
+            <div class="mb-3"><label class="form-label" for="price">Price per night (₹)</label><input class="form-control" id="price" name="price" type="number" min="0" step="0.01" value="<%= listing.price ?? '' %>" required><div class="invalid-feedback">Enter a valid price.</div></div>
             <div class="row">
-                <div class="mb-3 col-md-6"><label class="form-label" for="location">Location</label><input class="form-control" id="location" name="location" value="<%= listing.location %>" required><div class="invalid-feedback">Enter a location.</div></div>
-                <div class="mb-3 col-md-6"><label class="form-label" for="country">Country</label><input class="form-control" id="country" name="country" value="<%= listing.country %>" required><div class="invalid-feedback">Enter a country.</div></div>
+                <div class="mb-3 col-md-6"><label class="form-label" for="location">Place / city</label><input class="form-control" id="location" name="location" value="<%= listing.location || '' %>" required><div class="invalid-feedback">Enter a place or city.</div></div>
+                <div class="mb-3 col-md-6"><label class="form-label" for="country">Country</label><input class="form-control" id="country" name="country" value="<%= listing.country || '' %>" required><div class="invalid-feedback">Enter a country.</div></div>
             </div>
             <button class="btn btn-danger edit-btn" type="submit">Save Changes</button>
             <a href="/listings/<%= listing._id %>" class="btn btn-outline-secondary">Cancel</a>

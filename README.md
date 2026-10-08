@@ -1,11 +1,13 @@
 # StaybNb
 
-StaybNb is a frontend showcase for browsing accommodation listings. It uses Express and EJS to render the pages and bundled sample data for listings. It does not require MongoDB or another database; changes made through the site are not persisted.
+StaybNb is a small listings app built with Express and EJS. It starts with bundled sample listings and stores create, edit, and delete changes in `init/listings.json` for local development.
 
 ## Features
 
 - Browse sample stays
 - View listing images, descriptions, prices, and locations
+- Create, edit, and delete listings
+- Use a category-based default image when no photo URL is supplied
 - Responsive pages styled with Bootstrap
 
 ## Run locally
@@ -14,14 +16,14 @@ Install dependencies and start the app:
 
 ```sh
 npm install
-node app.js
+npm start
 ```
 
-Open [http://localhost:8080](http://localhost:8080).
+Open [http://localhost:8080](http://localhost:8080). The add listing page is at `/new-listing`.
 
 ## Deploy to Vercel
 
-Import this repository into Vercel and deploy. No database or environment variables are required for the frontend demo.
+Import this repository into Vercel and deploy. For durable listing changes in a serverless deployment, configure a database; local JSON file writes are intended for local development.
 
 ## Project structure
 
