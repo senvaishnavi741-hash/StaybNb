@@ -1,0 +1,30 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row mt-3">
+    <div class="col-8 offset-2">
+        <h3>Create a New Listing</h3>
+        <form method="POST" action="/listings" class="needs-validation" novalidate>
+            <div class="mb-3"><label class="form-label" for="title">Title</label><input class="form-control" id="title" name="title" required><div class="invalid-feedback">Enter a title.</div></div>
+            <div class="mb-3"><label class="form-label" for="description">Description</label><textarea class="form-control" id="description" name="description" rows="4" required></textarea><div class="invalid-feedback">Enter a description.</div></div>
+            <div class="mb-3"><label class="form-label" for="image">Image URL</label><input class="form-control" id="image" name="image" type="url" placeholder="https://example.com/image.jpg" required><div class="invalid-feedback">Enter a valid image URL.</div></div>
+            <div class="mb-3"><label class="form-label" for="price">Price per night (₹)</label><input class="form-control" id="price" name="price" type="number" min="0" required><div class="invalid-feedback">Enter a valid price.</div></div>
+            <div class="row">
+                <div class="mb-3 col-md-6"><label class="form-label" for="location">Location</label><input class="form-control" id="location" name="location" required><div class="invalid-feedback">Enter a location.</div></div>
+                <div class="mb-3 col-md-6"><label class="form-label" for="country">Country</label><input class="form-control" id="country" name="country" required><div class="invalid-feedback">Enter a country.</div></div>
+            </div>
+            <button class="btn btn-danger add-btn" type="submit">Add Listing</button>
+            <a href="/listings" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+<script>
+(() => {
+    const form = document.querySelector('.needs-validation');
+    form.addEventListener('submit', (event) => {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+    });
+})();
+</script>
